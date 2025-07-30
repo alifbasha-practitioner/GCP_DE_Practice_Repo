@@ -1,23 +1,23 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/${project_id}/my-repo/my-cloud-run-job:$SHORT_SHA', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-cloud-run-job:$SHORT_SHA', '.']
 
   # Push the container image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/${project_id}/my-repo/my-cloud-run-job:$SHORT_SHA']
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-cloud-run-job:$SHORT_SHA']
 
   # Run the Cloud Run Job
   - name: 'gcr.io/google-cloud-sdk/cloudsdk'
     entrypoint: gcloud
     args: [
       'run', 'jobs', 'execute', 'my-job',
-      '--image', 'us-central1-docker.pkg.dev/${project_id}/my-repo/my-cloud-run-job:$SHORT_SHA',
+      '--image', 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-cloud-run-job:$SHORT_SHA',
       '--region', 'us-central1',
-      '--project', '${project_id}'
+      '--project', '$PROJECT_ID'
     ]
 
-images: ['us-central1-docker.pkg.dev/${project_id}/my-repo/my-cloud-run-job:$SHORT_SHA']
+images: ['us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-cloud-run-job:$SHORT_SHA']
 
 options:
   substitution_option: 'ALLOW_LOOSE'
