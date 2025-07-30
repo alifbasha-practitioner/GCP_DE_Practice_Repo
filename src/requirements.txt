@@ -1,3 +1,4 @@
 pandas
 google-cloud-bigquery
 requests
+google-cloud-storage
