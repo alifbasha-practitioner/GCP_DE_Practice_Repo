@@ -21,5 +21,7 @@ images: ['us-central1-docker.pkg.dev/${project_id}/my-repo/my-cloud-run-job:$SHO
 
 options:
   substitution_option: 'ALLOW_LOOSE'
+  logging: CLOUD_LOGGING_ONLY
 substitutions:
     _REGION: us-central1
+
