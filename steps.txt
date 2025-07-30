@@ -1,0 +1,24 @@
+Manual Setup Checklist:
+1. Enable required APIs:
+   gcloud services enable artifactregistry.googleapis.com
+   gcloud services enable cloudbuild.googleapis.com
+   gcloud services enable run.googleapis.com
+
+2. Create an Artifact Registry repository:
+   gcloud artifacts repositories create REPO_NAME \
+     --repository-format=docker \
+     --location=REGION \
+     --description="Docker repo for Cloud Run jobs"
+
+3. Grant permissions to Cloud Build service account:
+   gcloud projects add-iam-policy-binding PROJECT_ID \
+     --member=serviceAccount:PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+     --role=roles/artifactregistry.writer
+
+   gcloud projects add-iam-policy-binding PROJECT_ID \
+     --member=serviceAccount:PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+     --role=roles/run.admin
+
+   gcloud projects add-iam-policy-binding PROJECT_ID \
+     --member=serviceAccount:PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+     --role=roles/storage.admin
